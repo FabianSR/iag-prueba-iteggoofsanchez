@@ -2,15 +2,15 @@
 
 Detalla aquí las decisiones y asumciones que has ido tomando durante el ejercicio
 
-He cambiado la version de Java a la 11 que es compatible con la versión de SpringBoot 2.2.6 que permite utilizar repositorios jpa sin tener hacer explícitas las consultas (basta con nombrar correctamente los métodos)
+He cambiado la versión de Java a la 11 que es compatible con la versión de SpringBoot 2.2.6 que permite utilizar repositorios jpa sin tener hacer explícitas las consultas (basta con nombrar correctamente los métodos)
 He añadido mapstruct para simplificar los mapeos entre las capas.
 
 He elegido una arquitectura hexagonal para la implementación del proyecto, consta de 3 capas:
 
-1. **Infraestructura: Aquí incluiré todas la librerias/técnologias externos de terceros, lombok, mappers con MapStructs, controladores rest, la persistencia utilizando jpa, la configuración de las beans (de ámbito Singleton) también se hará en esta capa
+1. **Infraestructura: Aquí incluiré todas la librerias/técnologias externas de terceros, lombok, mappers con MapStructs, controladores rest, la persistencia utilizando jpa, la configuración de las beans (de ámbito Singleton) también se hará en esta capa
 Esto permite cambiar cualquier de estas sin afectar a la lógica de negocio.
 
-2. **Aplicación: Aquí incluiré los casos de uso (puerto primarios) que utilizan los objetos de negocio para implementar la lógica, estos pueden necesitar llamar a la capa de infraestructura a través de puertos secundarios.
+2. **Aplicación: Aquí incluiré los casos de uso (puertos primarios) que utilizan los objetos de negocio para implementar la lógica, estos pueden necesitar llamar a la capa de infraestructura a través de puertos secundarios.
 
 3. **Dominio: Objetos java simples (pojos) que incluirán las validaciones y las interfaces necesarias para modelizar el negocio.
 
@@ -83,4 +83,8 @@ La clase de dominio ReservaDomain aunque es inmutable requiere conocer la posici
 se podría usar el patrón de diseño builder para evitarlo.
 Lo que comenté al principio: la capa de infraestructura conoce clases del dominio (de hecho las validaciones de dominio están saltando en los mappers de MapStruct al instanciarlos)
 
+NOTAS EVALUACIÓN
+ 
+Debería capturarse las excepciones en la capa de infraestructura con un ExceptionHandler como en https://github.com/FabianSR/TestJava2020
+La maquina de estado no se está utilizando demasiado y añade complejidad
 
